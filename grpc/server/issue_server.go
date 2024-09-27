@@ -1,4 +1,4 @@
-package server
+package tracker_common
 
 import (
 	"context"
