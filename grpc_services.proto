@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package issue_grpc;
+
+option go_package = "grpc/issue_grpc";
+
+service WorkspaceService {
+  rpc GetUserProject(GetProjectResponse) returns (UserProjectResponse);
+}
+
+message GetProjectResponse {
+  string projectId = 1;
+  string userId = 2;
+}
+
+message UserProjectResponse {
+  bool allowAccess = 1;
+}
