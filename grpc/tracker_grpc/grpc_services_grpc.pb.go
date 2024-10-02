@@ -4,7 +4,7 @@
 // - protoc             v5.28.2
 // source: grpc_services.proto
 
-package issue_grpc
+package tracker_grpc
 
 import (
 	context "context"
@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	WorkspaceService_GetUserProject_FullMethodName = "/issue_grpc.WorkspaceService/GetUserProject"
+	WorkspaceService_GetUserProject_FullMethodName = "/tracker_grpc.WorkspaceService/GetUserProject"
 )
 
 // WorkspaceServiceClient is the client API for WorkspaceService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WorkspaceServiceClient interface {
-	GetUserProject(ctx context.Context, in *GetProjectResponse, opts ...grpc.CallOption) (*UserProjectResponse, error)
+	GetUserProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*UserProjectResponse, error)
 }
 
 type workspaceServiceClient struct {
@@ -37,7 +37,7 @@ func NewWorkspaceServiceClient(cc grpc.ClientConnInterface) WorkspaceServiceClie
 	return &workspaceServiceClient{cc}
 }
 
-func (c *workspaceServiceClient) GetUserProject(ctx context.Context, in *GetProjectResponse, opts ...grpc.CallOption) (*UserProjectResponse, error) {
+func (c *workspaceServiceClient) GetUserProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*UserProjectResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserProjectResponse)
 	err := c.cc.Invoke(ctx, WorkspaceService_GetUserProject_FullMethodName, in, out, cOpts...)
@@ -51,7 +51,7 @@ func (c *workspaceServiceClient) GetUserProject(ctx context.Context, in *GetProj
 // All implementations must embed UnimplementedWorkspaceServiceServer
 // for forward compatibility.
 type WorkspaceServiceServer interface {
-	GetUserProject(context.Context, *GetProjectResponse) (*UserProjectResponse, error)
+	GetUserProject(context.Context, *GetProjectRequest) (*UserProjectResponse, error)
 	mustEmbedUnimplementedWorkspaceServiceServer()
 }
 
@@ -62,7 +62,7 @@ type WorkspaceServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedWorkspaceServiceServer struct{}
 
-func (UnimplementedWorkspaceServiceServer) GetUserProject(context.Context, *GetProjectResponse) (*UserProjectResponse, error) {
+func (UnimplementedWorkspaceServiceServer) GetUserProject(context.Context, *GetProjectRequest) (*UserProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserProject not implemented")
 }
 func (UnimplementedWorkspaceServiceServer) mustEmbedUnimplementedWorkspaceServiceServer() {}
@@ -87,7 +87,7 @@ func RegisterWorkspaceServiceServer(s grpc.ServiceRegistrar, srv WorkspaceServic
 }
 
 func _WorkspaceService_GetUserProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProjectResponse)
+	in := new(GetProjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func _WorkspaceService_GetUserProject_Handler(srv interface{}, ctx context.Conte
 		FullMethod: WorkspaceService_GetUserProject_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkspaceServiceServer).GetUserProject(ctx, req.(*GetProjectResponse))
+		return srv.(WorkspaceServiceServer).GetUserProject(ctx, req.(*GetProjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -108,7 +108,7 @@ func _WorkspaceService_GetUserProject_Handler(srv interface{}, ctx context.Conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var WorkspaceService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "issue_grpc.WorkspaceService",
+	ServiceName: "tracker_grpc.WorkspaceService",
 	HandlerType: (*WorkspaceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

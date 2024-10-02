@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package issue_grpc;
+package tracker_grpc;
 
-option go_package = "grpc/issue_grpc";
+option go_package = "grpc/tracker_grpc";
 
 service WorkspaceService {
-  rpc GetUserProject(GetProjectResponse) returns (UserProjectResponse);
+  rpc GetUserProject(GetProjectRequest) returns (UserProjectResponse);
 }
 
-message GetProjectResponse {
+message GetProjectRequest {
   string projectId = 1;
   string userId = 2;
 }
